@@ -16,8 +16,8 @@ export class Timer extends BaseComponent {
     <div class='timer'></div>
     `;
     setTimeout(() => {
-      if(this.isRunning){
-      this.startTimer();
+      if (this.isRunning) {
+        this.startTimer();
       }
     }, 100000);
     setTimeout(() => {
@@ -29,7 +29,7 @@ export class Timer extends BaseComponent {
     if (this.isRunning) {
       setTimeout(() => {
         const timer = document.querySelector('.timer');
-         setInterval(() => {
+        setInterval(() => {
           this.seconds += 1;
           if (this.seconds === 60) {
             this.minute += 1;

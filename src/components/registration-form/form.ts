@@ -68,23 +68,23 @@ export class Form extends BaseComponent {
     const fname: any = document.getElementById('fname');
     const lname: any = document.getElementById('lname');
     const email: any = document.getElementById('email');
-    if (!fname.value.match('[a-zA-Z]+')){
-      fname.classList.add('input-wrong')
+    if (!fname.value.match('[a-zA-Z]+')) {
+      fname.classList.add('input-wrong');
     }
-    if (!lname.value.match('[a-zA-Z]+')){
-      lname.classList.add('input-wrong')
+    if (!lname.value.match('[a-zA-Z]+')) {
+      lname.classList.add('input-wrong');
     }
-    if (!email.value.match('^.+@.+\..+$')){
-      email.classList.add('input-wrong')
+    if (!email.value.match('^.+@.+\..+$')) {
+      email.classList.add('input-wrong');
     }
-    if (fname.value.match('[a-zA-Z]+')){
-      fname.classList.add('input-right')
+    if (fname.value.match('[a-zA-Z]+')) {
+      fname.classList.add('input-right');
     }
-    if (lname.value.match('[a-zA-Z]+')){
-      lname.classList.add('input-right')
+    if (lname.value.match('[a-zA-Z]+')) {
+      lname.classList.add('input-right');
     }
-    if (email.value.match('^.+@.+\..+$')){
-      email.classList.add('input-right')
+    if (email.value.match('^.+@.+\..+$')) {
+      email.classList.add('input-right');
     }
     if (fname.value.match('[a-zA-Z]+') && lname.value.match('[a-zA-Z]+') && email.value.match('^.+@.+\..+$')) {
       userService.create(fname.value, lname.value, email.value);

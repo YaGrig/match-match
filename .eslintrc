@@ -1,14 +1,15 @@
 {
   "env": {
-    "browser": true,
-    "es2021": true
+    // "browser": true,
+    // "es2021": true
   },
   "extends": [
-    "airbnb-typescript/base",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    // "airbnb-typescript/base",
+    // "eslint:recommended",
+    // "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
+  // "parser": "babel-eslint",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -16,19 +17,19 @@
     "@typescript-eslint"
   ],
   "ignorePatterns": ["*.config.js", "node_modules/", "dist/"],
-  "rules": {
-    "no-plusplus": "off",
-    "no-console": "warn",
-    "max-len": ["warn", { "code": 120 }],
-    "indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
-    "@typescript-eslint/indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
-    "import/prefer-default-export": "off",
-    "no-param-reassign": ["error", {
-      "props": false
-    }]
-  }
+  // "rules": {
+  //   "no-plusplus": "off",
+  //   "no-console": "warn",
+  //   "max-len": ["warn", { "code": 120 }],
+  //   "indent": ["warn", 2, {
+  //     "SwitchCase": 1
+  //   }],
+  //   "@typescript-eslint/indent": ["warn", 2, {
+  //     "SwitchCase": 1
+  //   }],
+  //   "import/prefer-default-export": "off",
+  //   "no-param-reassign": ["error", {
+  //     "props": false
+  //   }]
+  // }
 }
