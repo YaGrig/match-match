@@ -8,15 +8,15 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  $min-height: 100vh;
   color: white;
   background-color: darkslategrey;
 }
-
 main {
   min-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 footer {

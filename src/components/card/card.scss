@@ -46,11 +46,18 @@
 
   &__front {
     background-color: crimson;
+    background-image: url('../../assets/card-back.png');
   }
 
   &__back {
     background-color: grey;
     background-image: url('../../assets/card-back.png');
     transform: rotateY(180deg);
+  }
+  &__right {
+    background-color: green;
+  }
+  &__wrong {
+    background-color: red;
   }
 }

@@ -7,5 +7,29 @@
       "camera.jpg",
       "cat.jpg"
     ]
+  },
+  {
+    "category": "unsorted6",
+    "images": [
+      "ball.jpg",
+      "brain.jpg",
+      "camera.jpg",
+      "cat.jpg",
+      "camera.jpg",
+      "camera.jpg"
+    ]
+  },
+  {
+    "category": "unsorted8",
+    "images": [
+      "ball.jpg",
+      "brain.jpg",
+      "camera.jpg",
+      "cat.jpg",
+      "camera.jpg",
+      "camera.jpg",
+      "camera.jpg",
+      "camera.jpg"
+    ]
   }
 ]

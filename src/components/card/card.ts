@@ -1,17 +1,22 @@
 import './card.scss';
 import { BaseComponent } from '../base-component';
-
+import { Game } from '../game/game';
+import { rightChoise } from '../game/game';
 const FLIP_CLASS = 'flipped';
 
 export class Card extends BaseComponent {
   constructor(readonly image: string) {
     super('div', ['card-container']);
-    this.element.innerHTML = `
-      <div class="card">
-        <div class="card__front" style="background-image: url('./images/${image}')"></div>
-        <div class="card__back"></div>
-      </div>
-    `;
+    const cards = document.createElement('div');
+    cards.classList.add('card');
+    const cardFront = document.createElement('div');
+    cardFront.classList.add('card__front');
+    cardFront.style.backgroundImage = `url('./images/${image}')`
+    const cardBack = document.createElement('div');
+    cardBack.classList.add('card__back');
+    this.element.append(cards);
+    cards.appendChild(cardFront);
+    cards.appendChild(cardBack);
   }
 
   flipToBack() {
