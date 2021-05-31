@@ -1,7 +1,6 @@
 import './card.scss';
 import { BaseComponent } from '../base-component';
-import { Game } from '../game/game';
-import { rightChoise } from '../game/game';
+
 const FLIP_CLASS = 'flipped';
 
 export class Card extends BaseComponent {
@@ -11,7 +10,7 @@ export class Card extends BaseComponent {
     cards.classList.add('card');
     const cardFront = document.createElement('div');
     cardFront.classList.add('card__front');
-    cardFront.style.backgroundImage = `url('./images/${image}')`
+    cardFront.style.backgroundImage = `url('./images/${image}')`;
     const cardBack = document.createElement('div');
     cardBack.classList.add('card__back');
     this.element.append(cards);

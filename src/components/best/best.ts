@@ -2,66 +2,45 @@ import './best.scss';
 
 import { BaseComponent } from '../base-component';
 import { router } from '../../router';
-import { Form } from '../registration-form/form';
-import { userService } from '../../services/user-service/user-service';
-const UserService = new userService();
+import { UserService } from '../../services/user-service/user-service';
+
+const userService = new UserService();
 
 export class Best extends BaseComponent {
   constructor() {
     super('div', ['best']);
-    let mainDiv = document.createElement('div');
+    this.getPlayers();
+  }
+
+  async getPlayers() {
+    router.navigate('/score');
+    const mainDiv = document.createElement('div');
     mainDiv.classList.add('bestPage');
-    this.element.appendChild(mainDiv);
-    let header = document.createElement('h2');
+    const header = document.createElement('h2');
+    header.classList.add('headerBest');
     header.innerText = 'best players';
     mainDiv.appendChild(header);
-    this.getPlayer();
-    this.getName();
-  }
-  async getPlayer(){
-    debugger;
-    // const newArray = [];
-    const bestPage = document.querySelector('.bestPage');
-    const array = await UserService.getTopPlayers();
-    if(array)
-    console.log(array)
-    return array;
-
-    }
-    async getName(){
-      const array:Array<any> = [];
-      const bestPage = document.querySelector('.bestPage');
-      const a =  new Promise((res, rej) => {
-        const array = this.getPlayer();
-        if (array) {
-            res(array);
-            for(let i = 0; i < 10; i++){
-
-            };
-        } else {
-          rej();
-          console.log('nosuccess')
-        }
-      });
-      a.then(
-        result =>  array.push(result),
-      )
-      const b = array.pop()
-      console.log(b)
-      // for(let i = 0; i < 10; i++){
-      //   console.log(array);
-      // // let player = document.createElement('div');
-      // // let playerName =document.createElement('h3');
-      // // let playerEmail =document.createElement('p');
-      // // let playerScore =document.createElement('p');
-      // // playerName.innerText = `${array[i][i].firstname}`
-      // // playerEmail.innerText = `${array[i][i].email}`
-      // // playerScore.innerText = `${array[i][i].score}`
-      // // player.appendChild(playerName);
-      // // player.appendChild(playerEmail);
-      // // player.appendChild(playerScore);
-      // // bestPage?.appendChild(player);
-      // }
+    this.element.appendChild(mainDiv);
+    const bestPage = this.element.querySelector('.bestPage');
+    const array = await userService.getTopPlayers();
+    // eslint-disable-next-line no-nested-ternary
+    array.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
+    for (let i = 0; i < 10; i++) {
+      const player = document.createElement('div');
+      player.classList.add('player');
+      const playerInfo = document.createElement('div');
+      playerInfo.classList.add('playerInfo');
+      const playerName = document.createElement('h3');
+      const playerEmail = document.createElement('p');
+      const playerScore = document.createElement('p');
+      playerName.innerText = `${array[i].firstname}`;
+      playerEmail.innerText = `${array[i].email}`;
+      playerScore.innerText = `Score:  ${array[i].score}`;
+      playerInfo.appendChild(playerName);
+      playerInfo.appendChild(playerEmail);
+      player.appendChild(playerInfo);
+      player.appendChild(playerScore);
+      bestPage?.appendChild(player);
     }
   }
-
+}
