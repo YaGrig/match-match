@@ -12,26 +12,33 @@ export class UserService {
     firstname = '',
     lastname = '',
     email = '',
-    id:any = uuidv4(),
+    id: any = uuidv4(),
     diff = 0,
     card = 0,
-  ) {
-    const user = await userRepository.create(firstname, lastname, email, id, diff, card);
+  ):Promise<object> {
+    const user = await userRepository.create(
+      firstname,
+      lastname,
+      email,
+      id,
+      diff,
+      card,
+    );
     this.currentUser = user;
     currentUserArray[0] = this.currentUser;
     return this.currentUser;
   }
 
-  async getTopPlayers() {
+  async getTopPlayers(): Promise<any> {
     const result = await userRepository.GetAllPlayers();
     return result;
   }
 
-  async updateUserScore(
+  updateUserScore(
     score: number,
     userId: any = Object.values(currentUserArray[0])[1],
-  ) {
-    const result = await userRepository.updateUserScore(score, userId);
+  ): void {
+    const result = userRepository.updateUserScore(score, userId);
     return result;
   }
 
@@ -45,8 +52,7 @@ export class UserService {
 
   async getUserDiff(
     userId: any = Object.values(currentUserArray[0])[1],
-
-  ) {
+  ): Promise<number> {
     const result = await userRepository.getUserDiff(userId);
     return result;
   }
@@ -54,15 +60,13 @@ export class UserService {
   async updateUserCards(
     card: number,
     userId: any = Object.values(currentUserArray[0])[1],
-  ) {
-    const result = await userRepository.updateUserCards(card, userId);
-    return result;
+  ): Promise<void> {
+    await userRepository.updateUserCards(card, userId);
   }
 
   async getUserCards(
     userId: any = Object.values(currentUserArray[0])[1],
-
-  ) {
+  ): Promise<number> {
     const result = await userRepository.getUserCards(userId);
     return result;
   }

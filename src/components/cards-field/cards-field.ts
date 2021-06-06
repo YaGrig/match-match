@@ -14,12 +14,12 @@ export class CardsField extends BaseComponent {
     this.getField();
   }
 
-  clear() {
+  clear():void {
     this.cards = [];
     this.element.innerHTML = '';
   }
 
-  addCards(cards: Card[]) {
+  addCards(cards: Card[]):void {
     this.cards = cards;
     this.cards.forEach((card) => this.element.appendChild(card.element));
     setTimeout(() => {
@@ -27,7 +27,7 @@ export class CardsField extends BaseComponent {
     }, SHOW_TIME * 1000);
   }
 
-  async getField() {
+  async getField():Promise<void> {
     const difficulty = await userService.getUserDiff();
     if (difficulty === 1) {
       this.element.classList.add('cards-field-medium');

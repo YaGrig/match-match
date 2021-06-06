@@ -21,7 +21,7 @@ export class Alert extends BaseComponent {
     });
   }
 
-  alertScore(score:number) {
+  alertScore(score:number):void {
     const alert = this.element.getElementsByClassName('alert')[0];
     const newAlert = document.createElement('p');
     newAlert.innerText = `Congratulations! You successfully found all matches. Your score: ${score}`;

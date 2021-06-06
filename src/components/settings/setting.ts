@@ -54,7 +54,6 @@ export class Settings extends BaseComponent {
   getDiff(): number {
     const chosenDiff = document.querySelector('.select') as HTMLSelectElement;
     const selectedOption = chosenDiff.selectedIndex;
-    console.log(selectedOption);
     return selectedOption;
   }
 
@@ -64,27 +63,27 @@ export class Settings extends BaseComponent {
 
   diffHandler(): void {
     const chosenDiff = this.element.querySelector(
-      '.select'
+      '.select',
     ) as HTMLSelectElement;
     chosenDiff.addEventListener('change', this.changeDiff.bind(this));
   }
 
   getCards(): number {
     const chosenCard = document.querySelector(
-      '.selectCards'
+      '.selectCards',
     ) as HTMLSelectElement;
     const selectedOption = chosenCard.selectedIndex;
     console.log(selectedOption);
     return selectedOption;
   }
 
-  changeCards() {
+  changeCards(): void {
     userService.updateUserCards(this.getCards());
   }
 
-  CardHandler() {
+  CardHandler(): void {
     const chosenCard = this.element.querySelector(
-      '.selectCards'
+      '.selectCards',
     ) as HTMLSelectElement;
     chosenCard.addEventListener('change', this.changeCards.bind(this));
   }

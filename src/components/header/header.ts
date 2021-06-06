@@ -1,14 +1,11 @@
 import './header.scss';
-
 import { BaseComponent } from '../base-component';
 import { router } from '../../router';
 import { Form } from '../registration-form/form';
 import { UserService } from '../../services/user-service/user-service';
-import { Timer } from '../timer/timer';
 
 const userService = new UserService();
 const form = new Form();
-const timer = new Timer();
 
 export class Header extends BaseComponent {
   public check = false;
@@ -17,38 +14,40 @@ export class Header extends BaseComponent {
 
   constructor() {
     super('header', ['header']);
-    this.element.innerHTML =
     const logo = document.createElement('div');
     logo.classList.add('logo');
-    const logo__text = document.createElement('p');
-    logo__text.classList.add('logo__text');
-    const logo__text_trans = document.createElement('p');
-    logo__text_trans.classList.add('logo__text transparent');
-    logo.appendChild('logo__text');
-    this.element.appendChild('logo');
+    const logoText = document.createElement('p');
+    logoText.classList.add('logo__text');
+    logo.appendChild(logoText);
+    this.element.appendChild(logo);
     const nav = document.createElement('nav');
-    const link__about = document.createElement('div');
-    link__about.classList.add('nav__link');
-    link__about.setAttribute('data-route','/about')
-    link__about.innerText = 'About Game';
-    const span__about = document.createElement('span');
-    span__about.classList.add('nav__icon info');
-    link__about.appendChild(span__about);
-    const link__score = document.createElement('div');
-    link__score.classList.add('nav__link');
-    link__score.setAttribute('data-route','/score')
-    link__score.innerText = 'Best Score';
-    const span__score = document.createElement('span');
-    span__score.classList.add('nav__icon scores');
-    link__score.appendChild(span__score);
-    const link__setting = document.createElement('div');
-    link__setting.classList.add('nav__link');
-    link__setting.setAttribute('data-route','/setting');
-    link__setting.innerText = 'Game Settings';
-    const span__set = document.createElement('span');
-    span__set.classList.add('nav__icon settings');
-    link__setting.appendChild(span__set);
+    nav.classList.add('nav');
+    const linkAbout = document.createElement('div');
+    linkAbout.classList.add('nav__link');
+    linkAbout.setAttribute('data-route', '/about');
+    linkAbout.innerText = 'About Game';
+    const spanAbout = document.createElement('span');
+    spanAbout.classList.add('nav__icon_info');
+    linkAbout.appendChild(spanAbout);
+    const linkScore = document.createElement('div');
+    linkScore.classList.add('nav__link');
+    linkScore.setAttribute('data-route', '/score');
+    linkScore.innerText = 'Best Score';
+    const spanScore = document.createElement('span');
+    spanScore.classList.add('nav__icon_scores');
+    linkScore.appendChild(spanScore);
+    const linkSetting = document.createElement('div');
+    linkSetting.classList.add('nav__link');
+    linkSetting.setAttribute('data-route', '/setting');
+    linkSetting.innerText = 'Game Settings';
+    const spanSet = document.createElement('span');
+    spanSet.classList.add('nav__icon_settings');
+    linkSetting.appendChild(spanSet);
     const button = document.createElement('button');
+    nav.appendChild(linkAbout);
+    nav.appendChild(linkScore);
+    nav.appendChild(linkSetting);
+    this.element.appendChild(nav);
     button.classList.add('btn', 'register-btn');
     if (this.check) {
       button.innerText = 'New Game';
@@ -59,7 +58,6 @@ export class Header extends BaseComponent {
     image.classList.add('image-container');
     this.element.append(button);
     this.element.append(image);
-    // this.fileInput?.addEventListener('change', this.LoadHandler);
     this.handleNavigation();
   }
 
@@ -80,8 +78,6 @@ export class Header extends BaseComponent {
         this.changeButton();
       }
       if (eventTarget.classList.contains('stopGame-btn')) {
-        console.log('>>>>');
-        timer.stopTime();
         this.changeButton();
       }
       if (eventTarget.classList.contains('submit')) {
@@ -96,7 +92,6 @@ export class Header extends BaseComponent {
       }
       if (selectedRoute) {
         this.check = false;
-        this.changeButton();
         router.navigate(selectedRoute);
       }
     });
@@ -114,15 +109,4 @@ export class Header extends BaseComponent {
       buttonReg.innerHTML = 'New Game';
     }
   }
-  // const image: HTMLImageElement = document.querySelector('.image');
-  // image.crossOrigin = 'Anonymous';
-  // image.onload = function() {
-  //   let canvas = document.createElement('canvas');
-  //   let ctx = canvas.getContext('2d');
-  //   canvas.height = image.naturalHeight;
-  //   canvas.width = image.naturalWidth;
-  //   ctx?.drawImage(image,0,0);
-  //   let data = canvas.toDataURL('image/jpeg');
-  //   image.src = data;
-  // }
 }

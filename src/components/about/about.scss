@@ -7,12 +7,15 @@
   height: 802px;
 }
 .aboutPage {
-  // background-color: #e5e5e5;
+  position: absolute;
+  left: 25%;
+  top: 10%;
   width: 55%;
-  height: 85%;
+  height: 75%;
   padding: 2%;
   background-image: url(../../../public/images/pages/Untitled.png);
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .image {
   height: 100%;

@@ -10,7 +10,6 @@ export class About extends BaseComponent {
     this.element.appendChild(mainDiv);
     const image = document.createElement('img');
     image.classList.add('image');
-    // image.setAttribute('src', '../../../grapefruit-slice-332-332.jpg');
     mainDiv.appendChild(image);
   }
 }

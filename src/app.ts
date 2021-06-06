@@ -19,7 +19,7 @@ const routerConfig: Map<string, () => HTMLElement> = new Map([
     () => new Best().element,
   ],
   [
-    '/settings',
+    '/setting',
     () => new Settings().element,
   ],
 ]);

@@ -7,13 +7,9 @@ const userService = new UserService();
 export class Form extends BaseComponent {
   constructor() {
     super('div', ['form']);
-    const imgLoader: HTMLInputElement = document.createElement('input');
-    imgLoader.setAttribute('type', 'file');
-    imgLoader.classList.add('imgLoader');
     const registerForm = document.createElement('div');
     const innerForm = document.createElement('div');
     const inputs = document.createElement('div');
-    const img = document.createElement('img');
     const name = document.createElement('p');
     const header = document.createElement('h2');
     header.classList.add('header-form');
@@ -48,8 +44,6 @@ export class Form extends BaseComponent {
     inputs.appendChild(email);
     inputs.appendChild(inputEmail);
     innerForm.appendChild(inputs);
-    innerForm.appendChild(img);
-    innerForm.appendChild(imgLoader);
     const buttons = document.createElement('div');
     buttons.classList.add('buttons');
     registerForm.appendChild(header);
@@ -65,11 +59,11 @@ export class Form extends BaseComponent {
     registerForm.append(buttons);
   }
 
-  formSubmit():void {
+  formSubmit():boolean {
     let validated = 'false';
-    const fname: HTMLInputElement = document.getElementById('fname');
-    const lname: HTMLInputElement = document.getElementById('lname');
-    const email: HTMLInputElement = document.getElementById('email');
+    const fname: any = document.getElementById('fname');
+    const lname: any = document.getElementById('lname');
+    const email: any = document.getElementById('email');
     if (!fname?.value.match('[a-zA-ZA-zА-я0-9]+')) {
       fname.classList.add('input-wrong');
     }
@@ -99,6 +93,7 @@ export class Form extends BaseComponent {
         this.deleteSubmit();
       }
     }
+    return true;
   }
 
   deleteSubmit():void {

@@ -11,7 +11,7 @@ import { UserService } from '../../services/user-service/user-service';
 const userService = new UserService();
 const FLIP_DELAY = 3000;
 const timer = new Timer();
-export let rightChoise = true;
+// export let rightChoise = true;
 
 export class Game extends BaseComponent {
   private readonly cardsField = new CardsField();
@@ -48,7 +48,7 @@ export class Game extends BaseComponent {
     return cat.images.map((name) => `${cat.category}/${name}`);
   }
 
-  async startGame(images: string[]):Promise<number> {
+  async startGame(images: string[]):Promise<void> {
     const difficulty = await userService.getUserDiff();
     let imagesDifficulty = 4;
     if (difficulty === 0) {
@@ -87,8 +87,7 @@ export class Game extends BaseComponent {
     }
 
     if (this.activeCard.image !== card.image) {
-      rightChoise = true;
-      this.changeColor(card);
+      // rightChoise = true;
       await delay(FLIP_DELAY);
       await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);
       this.nonCorrectChoise += 1;
@@ -97,7 +96,6 @@ export class Game extends BaseComponent {
       this.activeCard.element.classList.add('wrong');
       card.element.classList.add('wrong');
     } else {
-      this.changeColor(card);
       this.correctChoise += 1;
       this.count += 1;
       this.getScore();
@@ -110,22 +108,15 @@ export class Game extends BaseComponent {
     this.isAnimation = false;
   }
 
-  getScore() {
-    this.scoreNumber = (this.count - this.nonCorrectChoise) * 100 - this.timer.getTime() * 10;
+  getScore():number {
+    this.scoreNumber = (this.count - this.nonCorrectChoise) * 100 - timer.getTime() * 10;
     if (this.scoreNumber < 0) {
       return 0;
     }
     return this.scoreNumber;
   }
 
-  public changeColor(cardNext: any) {
-    if (rightChoise) {
-      this.activeCard?.element.classList.add('right');
-      cardNext.element.classList.add('right');
-    }
-  }
-
-  gameEnd() {
+  gameEnd():void {
     const alert = new Alert();
     alert.alertScore(this.getScore());
     userService.updateUserScore(this.getScore());

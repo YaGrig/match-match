@@ -1,5 +1,3 @@
-import { debug } from 'webpack';
-import { Game } from '../../components/game/game';
 import { User } from '../../models/user';
 
 export class UserRepository {
@@ -18,7 +16,6 @@ export class UserRepository {
     const openRequest = indexedDB.open(this.dbName);
     openRequest.onsuccess = (event) => {
       this.db = (event.target as any).result;
-      console.log(this.db);
     };
     openRequest.onupgradeneeded = (event) => {
       const db = (event.target as any).result;
@@ -45,18 +42,15 @@ export class UserRepository {
       if (users) {
         users.add(user).onsuccess = () => {
           res(user);
-          console.log('success');
         };
       } else {
         rej();
-        console.log('nosuccess');
       }
     });
   }
 
-  GetAllPlayers(): Promise<Array<any>> {
+  GetAllPlayers(): Promise<Array<string>> {
     return new Promise((res, rej) => {
-      // const array: Array<any> = [];
       const transaction = this.db?.transaction(this.storeName, 'readwrite');
       const users = transaction?.objectStore(this.storeName);
       if (users) {
@@ -68,7 +62,7 @@ export class UserRepository {
     });
   }
 
-  updateUserScore(score: number, userId: any): void {
+  updateUserScore(score: number, userId: number): void {
     const transaction = this.db?.transaction(this.storeName, 'readwrite');
     const users = transaction?.objectStore(this.storeName);
     if (users) {
@@ -81,8 +75,7 @@ export class UserRepository {
             const { value } = cursor;
             value.score = score;
             const requestLast = cursor.update(value);
-            requestLast.onsuccess = () => {
-            };
+            requestLast.onsuccess = () => {};
           }
           cursor.continue();
         }
@@ -90,7 +83,7 @@ export class UserRepository {
     }
   }
 
-  updateUserDiff(diff: number, userId: any): void {
+  updateUserDiff(diff: number, userId: number): void {
     const transaction = this.db?.transaction(this.storeName, 'readwrite');
     const users = transaction?.objectStore(this.storeName);
     if (users) {
@@ -103,8 +96,7 @@ export class UserRepository {
             const { value } = cursor;
             value.diff = diff;
             const requestLast = cursor.update(value);
-            requestLast.onsuccess = () => {
-            };
+            requestLast.onsuccess = () => {};
           }
           cursor.continue();
         }
@@ -125,8 +117,7 @@ export class UserRepository {
             const { value } = cursor;
             value.card = card;
             const requestLast = cursor.update(value);
-            requestLast.onsuccess = () => {
-            };
+            requestLast.onsuccess = () => {};
           }
           cursor.continue();
         }
@@ -136,58 +127,30 @@ export class UserRepository {
 
   getUserDiff(userId: string): Promise<number> {
     return new Promise((res, rej) => {
-      const array: Array<number> = [];
       const transaction = this.db?.transaction(this.storeName, 'readwrite');
       const users = transaction?.objectStore(this.storeName);
       if (users) {
         const request = users.getAll();
         request.onsuccess = () => {
           const allUsers = request.result;
-          const user = allUsers.find((user) => user.id === userId);
+          const user = allUsers.find((userData) => userData.id === userId);
           res(user.diff);
         };
-        // let request = users.openCursor();
-        // request.onsuccess = function () {
-        //   let cursor = request.result;
-        //   if (cursor) {
-        //     let key = cursor.key;
-        //     if (key === `${userId}`) {
-        //       let value = cursor.value.diff;
-        //       array.push(value);
-        //     }
-        //     cursor.continue();
-        //   }
-        //   res(array[0]);
-        // };
       }
     });
   }
 
   getUserCards(userId: string): Promise<number> {
     return new Promise((res, rej) => {
-      const array: Array<number> = [];
       const transaction = this.db?.transaction(this.storeName, 'readwrite');
       const users = transaction?.objectStore(this.storeName);
       if (users) {
         const request = users.getAll();
         request.onsuccess = () => {
           const allUsers = request.result;
-          const user = allUsers.find((user) => user.id === userId);
+          const user = allUsers.find((userData) => userData.id === userId);
           res(user.card);
         };
-        // let request = users.openCursor();
-        // request.onsuccess = function () {
-        //   let cursor = request.result;
-        //   if (cursor) {
-        //     let key = cursor.key;
-        //     if (key === `${userId}`) {
-        //       let value = cursor.value.diff;
-        //       array.push(value);
-        //     }
-        //     cursor.continue();
-        //   }
-        //   res(array[0]);
-        // };
       }
     });
   }

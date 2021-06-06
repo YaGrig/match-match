@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 } from 'uuid';
 
 export class User {
   firstname:string;
@@ -9,13 +9,11 @@ export class User {
 
   score?:number = 0;
 
-  id?:number = uuidv4();
+  id?:string = v4();
 
   diff = 0;
 
   card = 0;
-
-  image: any = 0;
 
   constructor(firstname:string, lastname:string, email:string, id?:number, score?:number, diff = 0, card = 0) {
     this.firstname = firstname,

@@ -1,5 +1,4 @@
 import './best.scss';
-
 import { BaseComponent } from '../base-component';
 import { router } from '../../router';
 import { UserService } from '../../services/user-service/user-service';
@@ -12,7 +11,7 @@ export class Best extends BaseComponent {
     this.getPlayers();
   }
 
-  async getPlayers() {
+  async getPlayers(): Promise<void> {
     router.navigate('/score');
     const mainDiv = document.createElement('div');
     mainDiv.classList.add('bestPage');
@@ -23,8 +22,11 @@ export class Best extends BaseComponent {
     this.element.appendChild(mainDiv);
     const bestPage = this.element.querySelector('.bestPage');
     const array = await userService.getTopPlayers();
-    // eslint-disable-next-line no-nested-ternary
-    array.sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
+    array.sort((a: any, b: any) => {
+      if (a > b) return -1;
+      if (b > a) return 1;
+      return 0;
+    });
     for (let i = 0; i < 10; i++) {
       const player = document.createElement('div');
       player.classList.add('player');

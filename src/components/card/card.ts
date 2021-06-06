@@ -22,11 +22,11 @@ export class Card extends BaseComponent {
     cards.appendChild(cardBack);
   }
 
-  flipToBack() {
+  flipToBack():Promise<void> {
     return this.flip(true);
   }
 
-  flipToFront() {
+  flipToFront():Promise<void> {
     return this.flip(false);
   }
 
@@ -39,17 +39,13 @@ export class Card extends BaseComponent {
     });
   }
 
-  async getCards() {
+  async getCards():Promise<void> {
     const difficulty = await userService.getUserDiff();
     const card = document.querySelectorAll('.card');
     if (difficulty === 1) {
       card?.forEach((element) => element.classList.add('card-medium'));
-      console.log(difficulty);
-      console.log(card);
     } else if (difficulty === 2) {
       card?.forEach((element) => element.classList.add('card-hard'));
-      console.log(difficulty);
-      console.log(card);
     }
   }
 }
