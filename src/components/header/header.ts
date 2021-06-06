@@ -4,36 +4,50 @@ import { BaseComponent } from '../base-component';
 import { router } from '../../router';
 import { Form } from '../registration-form/form';
 import { UserService } from '../../services/user-service/user-service';
-import { Game } from '../game/game';
-import { App } from '../../app';
-import { Alert } from '../congratulation/congr';
+import { Timer } from '../timer/timer';
 
 const userService = new UserService();
 const form = new Form();
-// const game = new Game();
-// export let check = false;
+const timer = new Timer();
 
 export class Header extends BaseComponent {
   public check = false;
 
+  public fileInput = document.querySelector('.imgLoader');
+
   constructor() {
     super('header', ['header']);
-    this.element.innerHTML = `
-      <h1 style="display: none">Match-match game</h1>
-      <div class="logo">
-        <p class="logo__text">match</p>
-        <p class="logo__text transparent">match</p>
-      </div>
-      <nav class="nav">
-        <div class="nav__link" data-route="/about"><span class="nav__icon info"></span>About Game</div>
-        <div class="nav__link" data-route="/score"><span class="nav__icon scores"></span>Best Score</div>
-        <div class="nav__link" data-route="/settings"><span class="nav__icon settings"></span>Game Settings</div>
-      </nav>`
-    // <div>
-    //   <button class="btn register-btn" id='register-btn'>register new player</button>
-    //   <button class="btn game-btn off" id='game-btn'>New Game</button>
-    // </div>
-    ;
+    this.element.innerHTML =
+    const logo = document.createElement('div');
+    logo.classList.add('logo');
+    const logo__text = document.createElement('p');
+    logo__text.classList.add('logo__text');
+    const logo__text_trans = document.createElement('p');
+    logo__text_trans.classList.add('logo__text transparent');
+    logo.appendChild('logo__text');
+    this.element.appendChild('logo');
+    const nav = document.createElement('nav');
+    const link__about = document.createElement('div');
+    link__about.classList.add('nav__link');
+    link__about.setAttribute('data-route','/about')
+    link__about.innerText = 'About Game';
+    const span__about = document.createElement('span');
+    span__about.classList.add('nav__icon info');
+    link__about.appendChild(span__about);
+    const link__score = document.createElement('div');
+    link__score.classList.add('nav__link');
+    link__score.setAttribute('data-route','/score')
+    link__score.innerText = 'Best Score';
+    const span__score = document.createElement('span');
+    span__score.classList.add('nav__icon scores');
+    link__score.appendChild(span__score);
+    const link__setting = document.createElement('div');
+    link__setting.classList.add('nav__link');
+    link__setting.setAttribute('data-route','/setting');
+    link__setting.innerText = 'Game Settings';
+    const span__set = document.createElement('span');
+    span__set.classList.add('nav__icon settings');
+    link__setting.appendChild(span__set);
     const button = document.createElement('button');
     button.classList.add('btn', 'register-btn');
     if (this.check) {
@@ -41,7 +55,11 @@ export class Header extends BaseComponent {
     } else {
       button.innerText = 'register new player';
     }
+    const image = document.createElement('div');
+    image.classList.add('image-container');
     this.element.append(button);
+    this.element.append(image);
+    // this.fileInput?.addEventListener('change', this.LoadHandler);
     this.handleNavigation();
   }
 
@@ -58,6 +76,12 @@ export class Header extends BaseComponent {
       }
       if (eventTarget.classList.contains('game-btn')) {
         router.navigate('/game');
+        this.check = true;
+        this.changeButton();
+      }
+      if (eventTarget.classList.contains('stopGame-btn')) {
+        console.log('>>>>');
+        timer.stopTime();
         this.changeButton();
       }
       if (eventTarget.classList.contains('submit')) {
@@ -72,6 +96,7 @@ export class Header extends BaseComponent {
       }
       if (selectedRoute) {
         this.check = false;
+        this.changeButton();
         router.navigate(selectedRoute);
       }
     });
@@ -83,11 +108,21 @@ export class Header extends BaseComponent {
       buttonReg?.classList.remove('game-btn');
       buttonReg?.classList.add('stopGame-btn');
       buttonReg.innerHTML = 'Stop Game';
-    }
-    if (buttonReg && !this.check) {
+    } else if (buttonReg && !this.check) {
       buttonReg?.classList.remove('register-btn');
       buttonReg?.classList.add('game-btn');
       buttonReg.innerHTML = 'New Game';
     }
   }
+  // const image: HTMLImageElement = document.querySelector('.image');
+  // image.crossOrigin = 'Anonymous';
+  // image.onload = function() {
+  //   let canvas = document.createElement('canvas');
+  //   let ctx = canvas.getContext('2d');
+  //   canvas.height = image.naturalHeight;
+  //   canvas.width = image.naturalWidth;
+  //   ctx?.drawImage(image,0,0);
+  //   let data = canvas.toDataURL('image/jpeg');
+  //   image.src = data;
+  // }
 }

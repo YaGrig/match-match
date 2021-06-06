@@ -1,14 +1,15 @@
 import './form.scss';
 import { BaseComponent } from '../base-component';
-import { User } from '../../models/user';
 import { UserService } from '../../services/user-service/user-service';
-import { About } from '../about/about';
 
 const userService = new UserService();
 
 export class Form extends BaseComponent {
   constructor() {
     super('div', ['form']);
+    const imgLoader: HTMLInputElement = document.createElement('input');
+    imgLoader.setAttribute('type', 'file');
+    imgLoader.classList.add('imgLoader');
     const registerForm = document.createElement('div');
     const innerForm = document.createElement('div');
     const inputs = document.createElement('div');
@@ -48,6 +49,7 @@ export class Form extends BaseComponent {
     inputs.appendChild(inputEmail);
     innerForm.appendChild(inputs);
     innerForm.appendChild(img);
+    innerForm.appendChild(imgLoader);
     const buttons = document.createElement('div');
     buttons.classList.add('buttons');
     registerForm.appendChild(header);
@@ -63,40 +65,43 @@ export class Form extends BaseComponent {
     registerForm.append(buttons);
   }
 
-  formSubmit() {
+  formSubmit():void {
     let validated = 'false';
-    const fname: any = document.getElementById('fname');
-    const lname: any = document.getElementById('lname');
-    const email: any = document.getElementById('email');
-    if (!fname.value.match('[a-zA-Z]+')) {
+    const fname: HTMLInputElement = document.getElementById('fname');
+    const lname: HTMLInputElement = document.getElementById('lname');
+    const email: HTMLInputElement = document.getElementById('email');
+    if (!fname?.value.match('[a-zA-ZA-zА-я0-9]+')) {
       fname.classList.add('input-wrong');
     }
-    if (!lname.value.match('[a-zA-Z]+')) {
+    if (!lname.value.match('[a-zA-ZA-zА-я0-9]+')) {
       lname.classList.add('input-wrong');
     }
-    if (!email.value.match('^.+@.+\..+$')) {
+    if (!email.value.match('^.+@.+..+$')) {
       email.classList.add('input-wrong');
     }
-    if (fname.value.match('[a-zA-Z]+')) {
+    if (fname.value.match('[a-zA-ZA-zА-я0-9]+')) {
       fname.classList.add('input-right');
     }
-    if (lname.value.match('[a-zA-Z]+')) {
+    if (lname.value.match('[a-zA-ZA-zА-я0-9]+')) {
       lname.classList.add('input-right');
     }
-    if (email.value.match('^.+@.+\..+$')) {
+    if (email.value.match('^.+@.+..+$')) {
       email.classList.add('input-right');
     }
-    if (fname.value.match('[a-zA-Z]+') && lname.value.match('[a-zA-Z]+') && email.value.match('^.+@.+\..+$')) {
+    if (
+      fname.value.match('[a-zA-ZA-zА-я0-9]+')
+      && lname.value.match('[a-zA-ZA-zА-я0-9]+')
+      && email.value.match('^.+@.+..+$')
+    ) {
       userService.create(fname.value, lname.value, email.value);
       validated = 'true';
       if (validated === 'true') {
         this.deleteSubmit();
       }
-      return true;
     }
   }
 
-  deleteSubmit() {
+  deleteSubmit():void {
     const form = document.querySelector('.form');
     form?.remove();
   }

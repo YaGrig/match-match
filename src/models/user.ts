@@ -15,6 +15,8 @@ export class User {
 
   card = 0;
 
+  image: any = 0;
+
   constructor(firstname:string, lastname:string, email:string, id?:number, score?:number, diff = 0, card = 0) {
     this.firstname = firstname,
     this.lastname = lastname,

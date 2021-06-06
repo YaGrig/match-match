@@ -1,5 +1,5 @@
 .card-container {
-  margin: 1%;
+  margin: 0%;
   flex: 1 0 20%;
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@
 
   cursor: pointer;
 
-  perspective: 28rem;
+  perspective: 14rem;
 
   &:hover > .card {
     transform: translateZ(2rem);
@@ -60,4 +60,12 @@
   &__wrong {
     background-color: red;
   }
+}
+.card-medium{
+  width:  7rem;
+  height: 8rem;
+}
+.card-hard{
+  width:  5rem;
+  height: 6rem;
 }

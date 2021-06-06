@@ -21,11 +21,6 @@ const routerConfig: Map<string, () => HTMLElement> = new Map([
   [
     '/settings',
     () => new Settings().element,
-    // () => {
-    //   const settingsPage = document.createElement('h1');
-    //   settingsPage.innerText = 'Settings Page';
-    //   return settingsPage;
-    // },
   ],
 ]);
 

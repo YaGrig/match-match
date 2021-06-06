@@ -7,19 +7,14 @@ import { ImageCategoryModel } from '../../models/image-category-models';
 import { Timer } from '../timer/timer';
 import { Alert } from '../congratulation/congr';
 import { UserService } from '../../services/user-service/user-service';
-import { Settings } from '../settings/setting';
-import { Header } from '../header/header';
 
-const header = new Header();
-const settings = new Settings();
 const userService = new UserService();
 const FLIP_DELAY = 3000;
+const timer = new Timer();
 export let rightChoise = true;
 
 export class Game extends BaseComponent {
   private readonly cardsField = new CardsField();
-
-  private readonly timer = new Timer();
 
   private correctChoise = 0;
 
@@ -39,7 +34,7 @@ export class Game extends BaseComponent {
     super('div', ['game']);
     if (this.checkGame === 'true') {
       this.cardsField = new CardsField();
-      this.element.appendChild(this.timer.element);
+      this.element.appendChild(timer.element);
       this.element.appendChild(this.cardsField.element);
       Game.loadImages().then((images) => this.startGame(images));
     }
@@ -49,19 +44,17 @@ export class Game extends BaseComponent {
     const res = await fetch('./images.json');
     const categories: ImageCategoryModel[] = await res.json();
     const cards = await userService.getUserCards();
-    console.log(cards);
     const cat = categories[cards];
-    console.log(cat);
     return cat.images.map((name) => `${cat.category}/${name}`);
   }
 
-  async startGame(images: string[]) {
+  async startGame(images: string[]):Promise<number> {
     const difficulty = await userService.getUserDiff();
     let imagesDifficulty = 4;
     if (difficulty === 0) {
-      imagesDifficulty = 4;
-    } else if (difficulty === 1) {
       imagesDifficulty = 8;
+    } else if (difficulty === 1) {
+      imagesDifficulty = 18;
     } else {
       imagesDifficulty = 32;
     }
@@ -77,8 +70,8 @@ export class Game extends BaseComponent {
     });
 
     this.cardsField.addCards(cards);
-    this.timer.startTimer();
-    this.timer.getTime();
+
+    timer.getTime();
   }
 
   private async cardHandler(card: Card) {
@@ -129,7 +122,6 @@ export class Game extends BaseComponent {
     if (rightChoise) {
       this.activeCard?.element.classList.add('right');
       cardNext.element.classList.add('right');
-    } else {
     }
   }
 

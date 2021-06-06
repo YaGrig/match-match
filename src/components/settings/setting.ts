@@ -1,7 +1,5 @@
 import './setting.scss';
-
 import { BaseComponent } from '../base-component';
-import { Form } from '../registration-form/form';
 import { UserService } from '../../services/user-service/user-service';
 
 const userService = new UserService();
@@ -53,25 +51,28 @@ export class Settings extends BaseComponent {
     this.CardHandler();
   }
 
-  getDiff() {
-    debugger;
+  getDiff(): number {
     const chosenDiff = document.querySelector('.select') as HTMLSelectElement;
     const selectedOption = chosenDiff.selectedIndex;
     console.log(selectedOption);
     return selectedOption;
   }
 
-  changeDiff() {
+  changeDiff(): void {
     userService.updateUserDiff(this.getDiff());
   }
 
-  diffHandler() {
-    const chosenDiff = this.element.querySelector('.select') as HTMLSelectElement;
+  diffHandler(): void {
+    const chosenDiff = this.element.querySelector(
+      '.select'
+    ) as HTMLSelectElement;
     chosenDiff.addEventListener('change', this.changeDiff.bind(this));
   }
 
-  getCards() {
-    const chosenCard = document.querySelector('.selectCards') as HTMLSelectElement;
+  getCards(): number {
+    const chosenCard = document.querySelector(
+      '.selectCards'
+    ) as HTMLSelectElement;
     const selectedOption = chosenCard.selectedIndex;
     console.log(selectedOption);
     return selectedOption;
@@ -82,7 +83,9 @@ export class Settings extends BaseComponent {
   }
 
   CardHandler() {
-    const chosenCard = this.element.querySelector('.selectCards') as HTMLSelectElement;
+    const chosenCard = this.element.querySelector(
+      '.selectCards'
+    ) as HTMLSelectElement;
     chosenCard.addEventListener('change', this.changeCards.bind(this));
   }
 }
